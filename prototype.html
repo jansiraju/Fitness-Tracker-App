@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitTrack Interactive Prototype</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{background:#0f172a;display:flex;justify-content:center;align-items:center;height:100vh}
+.mobile{width:390px;height:844px;background:#fff;border-radius:30px;overflow:hidden;position:relative}
+.screen{display:none;position:absolute;inset:0;background:#f8fafc;overflow:auto;padding-bottom:90px}
+.active{display:block}
+.top{background:#2563eb;color:#fff;padding:20px;border-bottom-left-radius:20px;border-bottom-right-radius:20px}
+.center{height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.logo{font-size:40px;color:#fff;font-weight:bold}
+.primary-btn{padding:14px 24px;border:none;border-radius:10px;background:#2563eb;color:#fff;margin-top:15px}
+input{width:90%;padding:12px;margin:8px;border-radius:10px;border:1px solid #ccc}
+.card,.setting{background:#fff;margin:15px;padding:15px;border-radius:15px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.progress{height:20px;background:#ddd;border-radius:10px;overflow:hidden}
+.progress-fill{height:100%;width:75%;background:#2563eb}
+.navbar{position:absolute;bottom:0;width:100%;display:flex;justify-content:space-around;background:#fff;padding:10px}
+.profile-img{width:120px;height:120px;border-radius:50%;display:block;margin:20px auto}
+.chart{display:flex;align-items:flex-end;justify-content:space-around;height:150px}
+.bar{width:25px;background:#2563eb}
+.dark{background:#111827;color:#fff}
+</style>
+</head>
+<body>
+<div class="mobile">
+
+<div class="screen active" id="splash">
+<div class="center" style="background:url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=800&q=80') center/cover">
+<div style="background:rgba(0,0,0,.5);padding:30px;border-radius:20px">
+<div class="logo">FitTrack</div>
+<h2 style="color:white">Track Your Fitness Journey</h2>
+<button class="primary-btn" onclick="showScreen('login')">Get Started</button>
+</div></div></div>
+
+<div class="screen" id="login">
+<div class="center">
+<h1>Welcome Back</h1>
+<input placeholder="Username">
+<input type="password" placeholder="Password">
+<button class="primary-btn" onclick="showScreen('dashboard')">Login</button>
+<p>Forgot Password?</p>
+<p>Sign Up</p>
+</div></div>
+
+<div class="screen" id="dashboard">
+<div class="top"><h2>Hello Jansi 👋</h2></div>
+<div class="card"><h3>Daily Steps</h3><h1>8420</h1></div>
+<div class="card"><h3>Calories Burned</h3><h1>640 kcal</h1></div>
+<div class="card"><h3>Water Intake</h3><h1>2.5 L</h1></div>
+<div class="card"><h3>Workout Progress</h3><div class="progress"><div class="progress-fill"></div></div></div>
+<div style="padding:15px">
+<button class="primary-btn" onclick="showScreen('workout')">Workout Progress</button>
+<button class="primary-btn" onclick="showScreen('activity')">Activity Tracker</button>
+</div>
+</div>
+
+<div class="screen" id="workout">
+<div class="top"><h2>Workout Progress</h2></div>
+<div class="card"><h3>Overall Progress</h3><div class="progress"><div class="progress-fill" style="width:80%"></div></div></div>
+<div class="card"><h3>Workout Statistics</h3><p>Running 12km</p><p>Cycling 18km</p><p>Walking 15km</p></div>
+<div class="card"><h3>Weekly Activity Chart</h3><div class="chart"><div class="bar" style="height:50px"></div><div class="bar" style="height:80px"></div><div class="bar" style="height:120px"></div><div class="bar" style="height:100px"></div></div></div>
+<div class="card"><h3>Completed Workouts</h3><p>Morning Run</p><p>Full Body Workout</p></div>
+<button class="primary-btn" onclick="showScreen('dashboard')">Back</button>
+</div>
+
+<div class="screen" id="activity">
+<div class="top"><h2>Activity Tracker</h2></div>
+<div class="card"><h3>Running</h3><p>5.4 km</p></div>
+<div class="card"><h3>Walking</h3><p>4.2 km</p></div>
+<div class="card"><h3>Cycling</h3><p>8.6 km</p></div>
+<div class="card"><h3>Distance Covered</h3><p>18.2 km</p></div>
+<div class="card"><h3>Calories Burned</h3><p>640 kcal</p></div>
+</div>
+
+<div class="screen" id="profile">
+<div class="top"><h2>Profile</h2></div>
+<img class="profile-img" src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png">
+<h2 style="text-align:center">Jansi Sivaji</h2>
+<div class="card"><p>Height: 170 cm</p><p>Weight: 60 kg</p></div>
+<div class="card"><p>Fitness Goal: Build Strength</p></div>
+<button class="primary-btn">Edit Profile</button>
+</div>
+
+<div class="screen" id="settings">
+<div class="top"><h2>Settings</h2></div>
+<div class="setting">Notifications</div>
+<div class="setting">Privacy Settings</div>
+<div class="setting">Dark Mode <input type="checkbox" onchange="document.body.classList.toggle('dark')"></div>
+<button class="primary-btn" onclick="showScreen('login')">Logout</button>
+</div>
+
+<div class="navbar">
+<button onclick="showScreen('dashboard')">Home</button>
+<button onclick="showScreen('workout')">Workout</button>
+<button onclick="showScreen('activity')">Activity</button>
+<button onclick="showScreen('profile')">Profile</button>
+<button onclick="showScreen('settings')">Settings</button>
+</div>
+
+</div>
+<script>
+function showScreen(id){
+document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+}
+</script>
+</body>
+</html>
